@@ -49,3 +49,25 @@
     opacity 0.3s;
   overflow: hidden;
 }
+
+/* Add responsive tweaks for section list and preview area */
+@media (max-width: 900px) {
+  .section-list-item {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+  }
+  .preview-animated {
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .section-list {
+    padding: 0 4px;
+  }
+  .preview-animated {
+    margin-top: 16px;
+    border-radius: 0;
+  }
+}
