@@ -14,14 +14,23 @@ const Builder = () => {
   const { sections, addSection, deleteSection, moveSection, editSection, replaceSections } =
     useSections()
   const [editingId, setEditingId] = useState<string | null>(null)
+  const [importSuccess, setImportSuccess] = useState(false)
+  const [importError, setImportError] = useState(false)
 
   // Handler to replace all sections (for import)
   const handleImport = (importedSections: typeof sections) => {
-    // Validate importedSections before replacing
-    if (Array.isArray(importedSections)) {
-      replaceSections(importedSections)
-    } else {
-      alert('Invalid import data.')
+    try {
+      if (Array.isArray(importedSections)) {
+        replaceSections(importedSections)
+        setImportSuccess(true)
+        setTimeout(() => setImportSuccess(false), 2000)
+      } else {
+        setImportError(true)
+        setTimeout(() => setImportError(false), 2000)
+      }
+    } catch {
+      setImportError(true)
+      setTimeout(() => setImportError(false), 2000)
     }
   }
 
@@ -30,6 +39,12 @@ const Builder = () => {
       <div style={{ flex: 1 }}>
         <SectionsLibrary onAddSection={addSection} />
         <ImportExportControls sections={sections} onImport={handleImport} />
+        {importSuccess && <div className="success-feedback">Import successful!</div>}
+        {importError && (
+          <div className="shake-error" style={{ color: '#c00', marginTop: 8 }}>
+            Import failed: Invalid data.
+          </div>
+        )}
       </div>
       <div style={{ flex: 2 }}>
         <h2>Page Layout</h2>
