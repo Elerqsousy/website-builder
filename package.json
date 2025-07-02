@@ -16,7 +16,8 @@
     "vercel-dev": "vercel",
     "vercel-prod": "vercel --prod",
     "typecheck": "tsc --noEmit",
-    "lint:batch-fix": "node scripts/fix-lint-in-batches.js"
+    "lint:batch-fix": "node scripts/fix-lint-in-batches.js",
+    "test": "echo \"No tests specified\" && exit 0"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
