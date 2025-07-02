@@ -1,13 +1,15 @@
 'use client'
 import React, { useState } from 'react'
 
-import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
 import {
-  arrayMove,
-  SortableContext,
-  useSortable,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable'
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  KeyboardSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core'
+import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 
 import { useSections } from '../../features/sections'
@@ -27,7 +29,7 @@ const SortableSectionItem: React.FC<{
   onClose: () => void
   onDelete: () => void
   children: React.ReactNode
-}> = ({ id, idx, sectionType, isEditing, onEdit, onClose, onDelete, children }) => {
+}> = ({ id, sectionType, isEditing, onEdit, onClose, onDelete, children }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging, isOver } =
     useSortable({ id })
   return (
@@ -42,16 +44,27 @@ const SortableSectionItem: React.FC<{
         transition,
         opacity: isDragging ? 0.7 : 1,
         zIndex: isDragging ? 2 : 1,
+        background: isOver ? '#e6f0fa' : undefined,
       }}
+      aria-label={sectionType}
       {...attributes}
       {...listeners}
     >
-      <span style={{ cursor: 'grab', userSelect: 'none' }} title="Drag to reorder">
+      <span
+        style={{ cursor: 'grab', userSelect: 'none' }}
+        title="Drag to reorder. You can also use keyboard arrows."
+        aria-label="Drag handle"
+        tabIndex={-1}
+      >
         ☰
       </span>
       {sectionType}
-      <button onClick={onDelete}>Delete</button>
-      <button onClick={onEdit}>Edit</button>
+      <button onClick={onDelete} aria-label={`Delete ${sectionType}`}>
+        Delete
+      </button>
+      <button onClick={onEdit} aria-label={`Edit ${sectionType}`}>
+        Edit
+      </button>
       {isEditing && (
         <div style={{ marginLeft: 16 }}>
           {children}
@@ -69,8 +82,11 @@ const Builder = () => {
   const [importSuccess, setImportSuccess] = useState(false)
   const [importError, setImportError] = useState(false)
 
-  // DnD-kit sensors
-  const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }))
+  // DnD-kit sensors: add KeyboardSensor for accessibility
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(KeyboardSensor)
+  )
 
   // Handler to replace all sections (for import)
   const handleImport = (importedSections: typeof sections) => {
@@ -90,14 +106,15 @@ const Builder = () => {
   }
 
   // DnD handler
-  function handleDragEnd(event: any) {
+  function handleDragEnd(event: import('@dnd-kit/core').DragEndEvent) {
     const { active, over } = event
-    if (active.id !== over?.id) {
+    if (over && active.id !== over.id) {
       const oldIndex = sections.findIndex(s => s.id === active.id)
       const newIndex = sections.findIndex(s => s.id === over.id)
       moveSection(oldIndex, newIndex)
     }
   }
+
   return (
     <div style={{ display: 'flex', gap: 32 }}>
       {' '}
@@ -116,7 +133,7 @@ const Builder = () => {
         <h2>Page Layout</h2>
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
           <SortableContext items={sections.map(s => s.id)} strategy={verticalListSortingStrategy}>
-            <ul className="section-list">
+            <ul className="section-list" aria-label="Section list" role="list">
               {sections.map((section, idx) => (
                 <SortableSectionItem
                   key={section.id}
@@ -144,11 +161,3 @@ const Builder = () => {
 }
 
 export default Builder
-
-// TODO: Next step is to implement drag-and-drop reordering for sections.
-// This will require integrating a drag-and-drop library (e.g., @dnd-kit/core or react-beautiful-dnd).
-// You will need to:
-// 1. Wrap the section list in a DnD context/provider.
-// 2. Make each section-list-item draggable.
-// 3. Update moveSection logic to handle drag events.
-// 4. Apply .moving and .drag-over classes for animation feedback.

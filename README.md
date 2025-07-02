@@ -21,6 +21,8 @@
 - Live Preview: See your page update in real-time as you edit.
 - Import/Export: Save and load your designs as JSON files.
 - Editable Sections: Edit, delete, and reorder sections with drag-and-drop.
+- Drag-and-Drop: Reorder sections using mouse or keyboard (DnD Kit).
+- Accessibility: ARIA roles/labels on sortable items and controls, keyboard-accessible drag-and-drop, tooltips for drag handles.
 - Fully Responsive: Works across all screen sizes.
 - SSR Friendly: Optimized for Next.js server-side rendering.
 - Performance Focused: Minimizes unnecessary re-renders.
@@ -57,3 +59,11 @@ MIT
 - Next.js
 - TypeScript
 - (You may add: Zustand/Redux, Framer Motion, TailwindCSS, etc.)
+
+## Final Polish & Accessibility
+
+- Drag-and-drop reordering is accessible via mouse and keyboard (DnD Kit).
+- ARIA roles/labels are added to sortable items and controls for accessibility.
+- The drag handle includes a tooltip and ARIA label for clarity.
+- The section list and items are keyboard accessible via DnD Kit's KeyboardSensor.
+- For best results, test on various devices and browsers, and adjust UI polish as needed.
