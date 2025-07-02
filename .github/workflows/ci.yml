@@ -23,7 +23,15 @@ jobs:
         run: npm ci
 
       - name: Lint
-        run: npm run lint
+        run: npm run lint -- --max-warnings=0
+
+      - name: Upload ESLint report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: eslint-report
+          path: eslint-report.json
+          retention-days: 5
 
       - name: Type check
         run: npm run typecheck
