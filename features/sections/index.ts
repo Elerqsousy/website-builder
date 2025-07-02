@@ -56,5 +56,10 @@ export function useSections() {
     )
   }
 
-  return { sections, addSection, deleteSection, moveSection, editSection }
+  // NEW: setSections for full import functionality
+  function replaceSections(newSections: SectionInstance[]) {
+    setSections(newSections)
+  }
+
+  return { sections, addSection, deleteSection, moveSection, editSection, replaceSections }
 }

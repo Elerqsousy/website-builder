@@ -11,15 +11,18 @@ import SectionEditor from './SectionEditor'
 import './builder-animations.css'
 
 const Builder = () => {
-  const { sections, addSection, deleteSection, moveSection, editSection } = useSections()
+  const { sections, addSection, deleteSection, moveSection, editSection, replaceSections } =
+    useSections()
   const [editingId, setEditingId] = useState<string | null>(null)
 
   // Handler to replace all sections (for import)
   const handleImport = (importedSections: typeof sections) => {
-    // This requires setSections to be exposed from the hook for full functionality.
-    // For now, just alert and log.
-    alert('Import is not fully implemented yet. Check console for imported data.')
-    console.log(importedSections)
+    // Validate importedSections before replacing
+    if (Array.isArray(importedSections)) {
+      replaceSections(importedSections)
+    } else {
+      alert('Invalid import data.')
+    }
   }
 
   return (
