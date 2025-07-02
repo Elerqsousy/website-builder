@@ -9,6 +9,8 @@
     background 0.2s,
     box-shadow 0.2s,
     transform 0.2s;
+  opacity: 0;
+  animation: fadeInSection 0.4s ease forwards;
 }
 .section-list-item:hover {
   background: #f5f5fa;
@@ -26,4 +28,24 @@
 .preview-animated:hover {
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
   border-color: #0070f3;
+}
+
+/* Add subtle fade-in animation for section list items */
+@keyframes fadeInSection {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Add smooth transition for editing panel */
+.section-list-item > div {
+  transition:
+    max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s;
+  overflow: hidden;
 }
