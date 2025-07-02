@@ -1,16 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useSections } from '../../features/sections'
 import Preview from '../preview'
 import SectionsLibrary from '../sections'
 
+import ImportExportControls from './ImportExportControls'
+import SectionEditor from './SectionEditor'
+
 const Builder = () => {
-  const { sections, addSection, deleteSection, moveSection } = useSections()
+  const { sections, addSection, deleteSection, moveSection, editSection } = useSections()
+  const [editingId, setEditingId] = useState<string | null>(null)
+
+  // Handler to replace all sections (for import)
+  const handleImport = (importedSections: typeof sections) => {
+    // This requires setSections to be exposed from the hook for full functionality.
+    // For now, just alert and log.
+    alert('Import is not fully implemented yet. Check console for imported data.')
+    console.log(importedSections)
+  }
 
   return (
     <div style={{ display: 'flex', gap: 32 }}>
       <div style={{ flex: 1 }}>
         <SectionsLibrary onAddSection={addSection} />
+        <ImportExportControls sections={sections} onImport={handleImport} />
       </div>
       <div style={{ flex: 2 }}>
         <h2>Page Layout</h2>
@@ -33,6 +46,13 @@ const Builder = () => {
               >
                 ↓
               </button>
+              <button onClick={() => setEditingId(section.id)}>Edit</button>
+              {editingId === section.id && (
+                <div style={{ marginLeft: 16 }}>
+                  <SectionEditor section={section} onEdit={editSection} />
+                  <button onClick={() => setEditingId(null)}>Close</button>
+                </div>
+              )}
             </li>
           ))}
         </ul>
