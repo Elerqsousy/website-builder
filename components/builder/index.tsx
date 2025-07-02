@@ -7,6 +7,8 @@ import SectionsLibrary from '../sections'
 import ImportExportControls from './ImportExportControls'
 import SectionEditor from './SectionEditor'
 
+import './builder-animations.css'
+
 const Builder = () => {
   const { sections, addSection, deleteSection, moveSection, editSection } = useSections()
   const [editingId, setEditingId] = useState<string | null>(null)
@@ -27,9 +29,13 @@ const Builder = () => {
       </div>
       <div style={{ flex: 2 }}>
         <h2>Page Layout</h2>
-        <ul>
+        <ul className="section-list">
           {sections.map((section, idx) => (
-            <li key={section.id} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <li
+              key={section.id}
+              className="section-list-item"
+              style={{ display: 'flex', alignItems: 'center', gap: 8 }}
+            >
               {section.type}
               <button onClick={() => deleteSection(section.id)}>Delete</button>
               <button
@@ -57,7 +63,9 @@ const Builder = () => {
           ))}
         </ul>
         <h2>Live Preview</h2>
-        <Preview sections={sections} />
+        <div className="preview-animated">
+          <Preview sections={sections} />
+        </div>
       </div>
     </div>
   )

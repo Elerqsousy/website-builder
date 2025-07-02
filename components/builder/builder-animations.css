@@ -1,0 +1,29 @@
+.section-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.section-list-item {
+  transition:
+    background 0.2s,
+    box-shadow 0.2s,
+    transform 0.2s;
+}
+.section-list-item:hover {
+  background: #f5f5fa;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transform: translateY(-2px) scale(1.01);
+}
+
+.preview-animated {
+  transition:
+    box-shadow 0.3s,
+    border-color 0.3s;
+  border-radius: 8px;
+}
+.preview-animated:focus-within,
+.preview-animated:hover {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  border-color: #0070f3;
+}
