@@ -125,6 +125,23 @@
   will-change: max-height, opacity;
 }
 
+/* Animate focus ring for better accessibility feedback */
+.section-list-item:focus-within {
+  animation: focusRingPulse 0.3s;
+}
+
+@keyframes focusRingPulse {
+  0% {
+    box-shadow: 0 0 0 0 #0070f3;
+  }
+  70% {
+    box-shadow: 0 0 0 4px #b3d4fc;
+  }
+  100% {
+    box-shadow: 0 0 0 0 #0070f3;
+  }
+}
+
 /* Add responsive tweaks for section list and preview area */
 @media (max-width: 900px) {
   .section-list-item {
@@ -145,4 +162,343 @@
     margin-top: 16px;
     border-radius: 0;
   }
+}
+
+/* Animate section removal with fade-out */
+.section-list-item.removing {
+  opacity: 0 !important;
+  transform: translateY(20px) scale(0.97) !important;
+  transition:
+    opacity 0.25s,
+    transform 0.25s;
+  pointer-events: none;
+}
+
+/* Animate section reordering with slight scale */
+.section-list-item.moving {
+  z-index: 2;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transform: scale(1.03);
+  transition:
+    box-shadow 0.2s,
+    transform 0.2s;
+}
+
+/* Animate import/export controls fade-in */
+@keyframes fadeInImportExport {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.ImportExportControls-animated {
+  animation: fadeInImportExport 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animate SectionsLibrary fade-in */
+@keyframes fadeInSectionsLibrary {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.SectionsLibrary-animated {
+  animation: fadeInSectionsLibrary 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animate SectionEditor panel fade-in and slide */
+@keyframes fadeInSectionEditor {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.SectionEditor-animated {
+  animation: fadeInSectionEditor 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animate error or alert feedback (e.g., for invalid import) */
+@keyframes shakeError {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-8px);
+  }
+  40% {
+    transform: translateX(8px);
+  }
+  60% {
+    transform: translateX(-6px);
+  }
+  80% {
+    transform: translateX(6px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.shake-error {
+  animation: shakeError 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animate success feedback (e.g., for successful import/export) */
+@keyframes fadeInSuccess {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.success-feedback {
+  animation: fadeInSuccess 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #007a29;
+  background: #e6fbe9;
+  border: 1px solid #b6e7c9;
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin: 8px 0;
+  font-weight: 500;
+}
+
+/* Animate loading spinner for async actions */
+@keyframes spinLoading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loading-spinner {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border: 3px solid #eaeaea;
+  border-top: 3px solid #0070f3;
+  border-radius: 50%;
+  animation: spinLoading 0.7s linear infinite;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+/* Animate empty state fade-in for preview and section list */
+@keyframes fadeInEmptyState {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.empty-state-animated {
+  animation: fadeInEmptyState 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animate drag-over state for section list items (for future drag-and-drop) */
+.section-list-item.drag-over {
+  background: #e6f0fa;
+  border: 2px dashed #0070f3;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+
+/* Animate tooltip fade-in for future UI hints/help */
+@keyframes fadeInTooltip {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.tooltip-animated {
+  animation: fadeInTooltip 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animate modal/dialog fade-in for future use */
+@keyframes fadeInModal {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+.modal-animated {
+  animation: fadeInModal 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Snackbar/Toast Notification Animation */
+@keyframes fadeInToast {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.toast-animated {
+  animation: fadeInToast 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dropdown/Menu Animation */
+@keyframes fadeInDropdown {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.dropdown-animated {
+  animation: fadeInDropdown 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Backdrop Fade Animation */
+@keyframes fadeInBackdrop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.backdrop-animated {
+  animation: fadeInBackdrop 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Tab Switch Animation */
+@keyframes fadeInTab {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.tab-animated {
+  animation: fadeInTab 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Accordion Expand/Collapse Animation */
+@keyframes expandAccordion {
+  from {
+    max-height: 0;
+    opacity: 0;
+  }
+  to {
+    max-height: 500px;
+    opacity: 1;
+  }
+}
+.accordion-animated {
+  animation: expandAccordion 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+/* Progress Bar Animation */
+@keyframes progressBar {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+.progress-bar-animated {
+  animation: progressBar 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Image Fade-in/Zoom Animation */
+@keyframes fadeInImage {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.image-animated {
+  animation: fadeInImage 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 #0070f3;
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(0, 112, 243, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 #0070f3;
+  }
+}
+.pulse-animated {
+  animation: pulse 1.2s infinite;
+}
+
+/* Badge/Counter Animation */
+@keyframes popBadge {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  80% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.badge-animated {
+  animation: popBadge 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Slide-in/Slide-out for Sidebars */
+@keyframes slideInSidebar {
+  from {
+    opacity: 0;
+    transform: translateX(-48px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.sidebar-animated {
+  animation: slideInSidebar 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
