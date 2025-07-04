@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { ToastProvider } from '@/contexts/toast'
+import { cn } from '@/utils/tw-clsx'
 
 import Preview from '../preview'
 import SectionsLibrary from '../sections'
@@ -10,20 +11,36 @@ import SortableSections from './sortableSections'
 
 const Builder = () => {
   return (
-    <div className="flex gap-8">
-      <div className="flex-1">
+    <main
+      className={cn(
+        'flex flex-col w-full px-4 max-h-screen gap-4 overflow-y-auto overflow-x-hidden mt-8',
+        ' md:px-8 lg:px-16 xl:px-32 md:gap-8 md:flex-row'
+      )}
+    >
+      <article className="order-1 flex-1 md:flex-[2] lg:flex-1">
         <SectionsLibrary />
         <ToastProvider>
           <ImportExportControls />
         </ToastProvider>
-      </div>
-      <div className="flex-2 flex-grow">
-        <h2 className="text-xl font-semibold mb-2">Page Layout</h2>
-        <SortableSections />
-        <h2 className="text-xl font-semibold mt-8 mb-2">Live Preview</h2>
+      </article>
+
+      <article className="order-3 flex-1 md:order-2 md:flex-[5] lg:flex-[2]">
+        <h2 className="text-xl font-semibold">Live Preview</h2>
         <Preview />
-      </div>
-    </div>
+      </article>
+
+      <article
+        className={cn(
+          'order-2 flex-1 h-full shadow-lg transition-transform w-full',
+          ' md:h-auto md:shadow-none md:w-auto md:order-2 lg:order-3 md:flex-[2] lg:flex-1'
+        )}
+      >
+        <div className="p-4 md:p-0">
+          <h2 className="text-xl font-semibold mb-2">Page Layout</h2>
+          <SortableSections />
+        </div>
+      </article>
+    </main>
   )
 }
 
