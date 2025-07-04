@@ -39,18 +39,16 @@ const ImportExportControls: React.FC<Props> = ({ sections, onImport }) => {
   }
 
   return (
-    <div style={{ marginTop: 24 }}>
-      <button onClick={handleExport}>Export JSON</button>
-      <label style={{ marginLeft: 12 }}>
-        <input
-          type="file"
-          accept="application/json"
-          style={{ display: 'none' }}
-          onChange={handleImport}
-        />
-        <span style={{ cursor: 'pointer', color: '#0070f3', textDecoration: 'underline' }}>
-          Import JSON
-        </span>
+    <div className="mt-6">
+      <button
+        onClick={handleExport}
+        className="mr-3 px-3 py-1 rounded border border-gray-200 bg-white hover:border-blue-500 hover:bg-blue-50 transition-colors"
+      >
+        Export JSON
+      </button>
+      <label className="ml-3 cursor-pointer text-blue-600 underline">
+        <input type="file" accept="application/json" className="hidden" onChange={handleImport} />
+        <span className=" cursor-pointer font-[#0070f3] underline">Import JSON</span>
       </label>
     </div>
   )

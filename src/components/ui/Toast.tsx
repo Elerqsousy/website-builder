@@ -6,14 +6,12 @@ type ToastProps = {
 }
 
 const Toast: React.FC<ToastProps> = ({ message, type = 'info' }) => {
-  let className = 'toast-animated'
-  if (type === 'success') className += ' success-feedback'
-  if (type === 'error') className += ' shake-error'
-  return (
-    <div className={className} style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 1000 }}>
-      {message}
-    </div>
-  )
+  let className = 'animate-fadeInToast fixed bottom-6 right-6 z-[1000] px-4 py-2 rounded shadow'
+  if (type === 'success')
+    className += ' animate-fadeInSuccess text-green-800 bg-green-50 border border-green-200'
+  if (type === 'error')
+    className += ' animate-shakeError text-red-700 bg-red-50 border border-red-200'
+  return <div className={className}>{message}</div>
 }
 
 export default Toast

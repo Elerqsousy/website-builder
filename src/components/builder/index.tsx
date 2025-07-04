@@ -18,7 +18,6 @@ import SectionsLibrary from '../sections'
 
 import ImportExportControls from './ImportExportControls'
 import SectionEditor from './SectionEditor'
-import './builder-animations.css'
 
 const SortableSectionItem: React.FC<{
   id: string
@@ -35,11 +34,13 @@ const SortableSectionItem: React.FC<{
   return (
     <li
       ref={setNodeRef}
-      className={`section-list-item${isDragging ? ' moving' : ''}${isOver ? ' drag-over' : ''}`}
+      className={[
+        'flex items-center gap-2 px-4 py-2 rounded transition-all duration-200 opacity-0 animate-fadeInSection',
+        isDragging ? 'z-20 shadow-2xl scale-105 bg-white opacity-70' : 'z-10',
+        isOver ? 'bg-blue-50 border-2 border-dashed border-blue-500' : '',
+        'relative',
+      ].join(' ')}
       style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: 8,
         transform: CSS.Transform.toString(transform),
         transition,
         opacity: isDragging ? 0.7 : 1,
@@ -51,24 +52,37 @@ const SortableSectionItem: React.FC<{
       {...listeners}
     >
       <span
-        style={{ cursor: 'grab', userSelect: 'none' }}
+        className="cursor-grab select-none text-lg"
         title="Drag to reorder. You can also use keyboard arrows."
         aria-label="Drag handle"
         tabIndex={-1}
       >
         ☰
       </span>
-      {sectionType}
-      <button onClick={onDelete} aria-label={`Delete ${sectionType}`}>
+      <span className="font-medium flex-1">{sectionType}</span>
+      <button
+        onClick={onDelete}
+        aria-label={`Delete ${sectionType}`}
+        className="mr-1 min-w-8 min-h-8 rounded border border-transparent bg-white transition-colors text-base px-2 hover:border-blue-500 hover:bg-blue-50 focus-visible:outline-blue-500"
+      >
         Delete
       </button>
-      <button onClick={onEdit} aria-label={`Edit ${sectionType}`}>
+      <button
+        onClick={onEdit}
+        aria-label={`Edit ${sectionType}`}
+        className="mr-1 min-w-8 min-h-8 rounded border border-transparent bg-white transition-colors text-base px-2 hover:border-blue-500 hover:bg-blue-50 focus-visible:outline-blue-500"
+      >
         Edit
       </button>
       {isEditing && (
-        <div style={{ marginLeft: 16 }}>
+        <div className="ml-4 max-h-[500px] opacity-100 transition-all duration-300 overflow-hidden">
           {children}
-          <button onClick={onClose}>Close</button>
+          <button
+            onClick={onClose}
+            className="mt-2 px-2 py-1 rounded border border-gray-200 bg-white hover:border-blue-500 hover:bg-blue-50 transition-colors"
+          >
+            Close
+          </button>
         </div>
       )}
     </li>
@@ -116,24 +130,24 @@ const Builder = () => {
   }
 
   return (
-    <div style={{ display: 'flex', gap: 32 }}>
-      {' '}
-      <div style={{ flex: 1 }}>
-        {' '}
-        <SectionsLibrary onAddSection={addSection} />{' '}
-        <ImportExportControls sections={sections} onImport={handleImport} />{' '}
-        {importSuccess && <div className="success-feedback">Import successful!</div>}
-        {importError && (
-          <div className="shake-error" style={{ color: '#c00', marginTop: 8 }}>
-            Import failed: Invalid data.
+    <div className="flex gap-8">
+      <div className="flex-1">
+        <SectionsLibrary onAddSection={addSection} />
+        <ImportExportControls sections={sections} onImport={handleImport} />
+        {importSuccess && (
+          <div className="animate-fadeInSuccess text-green-800 bg-green-50 border border-green-200 rounded px-4 py-2 my-2 font-medium">
+            Import successful!
           </div>
         )}
+        {importError && (
+          <div className="animate-shakeError text-red-700 mt-2">Import failed: Invalid data.</div>
+        )}
       </div>
-      <div style={{ flex: 2 }}>
-        <h2>Page Layout</h2>
+      <div className="flex-2 flex-grow">
+        <h2 className="text-xl font-semibold mb-2">Page Layout</h2>
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
           <SortableContext items={sections.map(s => s.id)} strategy={verticalListSortingStrategy}>
-            <ul className="section-list" aria-label="Section list" role="list">
+            <ul className="section-list flex flex-col gap-2" aria-label="Section list" role="list">
               {sections.map((section, idx) => (
                 <SortableSectionItem
                   key={section.id}
@@ -151,8 +165,8 @@ const Builder = () => {
             </ul>
           </SortableContext>
         </DndContext>
-        <h2>Live Preview</h2>
-        <div className="preview-animated">
+        <h2 className="text-xl font-semibold mt-8 mb-2">Live Preview</h2>
+        <div className="animate-slideInPreview border border-gray-200 rounded-lg mt-4">
           <Preview sections={sections} />
         </div>
       </div>

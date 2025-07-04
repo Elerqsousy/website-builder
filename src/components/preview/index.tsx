@@ -18,20 +18,20 @@ const SectionPreview: React.FC<SectionPreviewProps> = ({ type, props }) => {
   switch (type) {
     case 'header':
       return (
-        <header style={{ padding: 16, background: '#eee' }}>
+        <header className="px-4 py-4 bg-gray-100">
           {(props as HeaderProps)?.title || 'Header Section'}
         </header>
       )
     case 'hero':
       return (
-        <section style={{ padding: 32, background: '#cce' }}>
-          <h1>{(props as HeroProps)?.title || 'Hero Section'}</h1>
-          <p>{(props as HeroProps)?.description || 'This is a hero section.'}</p>
+        <section className="px-8 py-8 bg-indigo-100">
+          <h1 className="text-2xl font-bold">{(props as HeroProps)?.title || 'Hero Section'}</h1>
+          <p className="mt-2">{(props as HeroProps)?.description || 'This is a hero section.'}</p>
         </section>
       )
     case 'footer':
       return (
-        <footer style={{ padding: 16, background: '#eee' }}>
+        <footer className="px-4 py-4 bg-gray-100">
           {(props as FooterProps)?.text || 'Footer Section'}
         </footer>
       )
@@ -41,9 +41,9 @@ const SectionPreview: React.FC<SectionPreviewProps> = ({ type, props }) => {
 }
 
 const Preview: React.FC<{ sections: SectionInstance[] }> = ({ sections }) => (
-  <div style={{ border: '1px solid #ddd', marginTop: 16, minHeight: 200 }}>
+  <div className="border border-gray-200 mt-4 min-h-[200px] rounded-lg">
     {sections.length === 0 && (
-      <div style={{ color: '#aaa', textAlign: 'center', padding: 32 }}>No sections yet.</div>
+      <div className="text-gray-400 text-center py-8">No sections yet.</div>
     )}
     {sections.map(section => (
       <SectionPreview key={section.id} type={section.type} props={section.props} />
