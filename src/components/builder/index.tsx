@@ -12,7 +12,7 @@ import {
 import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 
-import { useSections } from '../../features/sections'
+import { useSections } from '../../hooks/sections'
 import Preview from '../preview'
 import SectionsLibrary from '../sections'
 

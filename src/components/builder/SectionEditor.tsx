@@ -6,7 +6,7 @@ import type {
   HeaderProps,
   HeroProps,
   FooterProps,
-} from '../../features/sections'
+} from '../../hooks/sections'
 
 type Props = {
   section: SectionInstance

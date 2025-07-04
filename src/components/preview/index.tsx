@@ -1,6 +1,6 @@
 import React from 'react'
 
-import type { SectionInstance } from '../../features/sections'
+import type { SectionInstance } from '../../hooks/sections'
 
 // Define a type for section props for each section type
 type HeaderProps = { title?: string }
