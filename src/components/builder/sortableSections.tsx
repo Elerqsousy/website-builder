@@ -8,6 +8,7 @@ import {
   KeyboardSensor,
   useSensor,
   useSensors,
+  DragEndEvent,
 } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { useShallow } from 'zustand/shallow'
@@ -37,7 +38,7 @@ const SortableSections = () => {
     useSensor(KeyboardSensor)
   )
 
-  function handleDragEnd(event: import('@dnd-kit/core').DragEndEvent) {
+  function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event
     if (over && active.id !== over.id) {
       const oldIndex = sections.findIndex(s => s.id === active.id)
