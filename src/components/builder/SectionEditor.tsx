@@ -1,12 +1,6 @@
 import React from 'react'
 
-import type {
-  SectionInstance,
-  SectionProps,
-  HeaderProps,
-  HeroProps,
-  FooterProps,
-} from '../../hooks/sections'
+import { FooterProps, HeaderProps, HeroProps, SectionInstance, SectionProps } from '@/types'
 
 type Props = {
   section: SectionInstance

@@ -3,13 +3,12 @@ import React from 'react'
 type SectionType = {
   id: string
   name: string
-  description: string
 }
 
 const SECTIONS: SectionType[] = [
-  { id: 'header', name: 'Header', description: 'A simple page header' },
-  { id: 'hero', name: 'Hero', description: 'A large hero section' },
-  { id: 'footer', name: 'Footer', description: 'A simple page footer' },
+  { id: 'header', name: 'Header' },
+  { id: 'hero', name: 'Hero' },
+  { id: 'footer', name: 'Footer' },
 ]
 
 type Props = {
@@ -23,7 +22,6 @@ const SectionsLibrary: React.FC<Props> = ({ onAddSection }) => (
       {SECTIONS.map(section => (
         <li key={section.id} className="mb-3">
           <strong>{section.name}</strong>
-          <div className="text-xs text-gray-500">{section.description}</div>
           <button
             onClick={() => onAddSection(section.id)}
             className="mt-1 px-2 py-1 rounded border border-gray-200 bg-white hover:border-blue-500 hover:bg-blue-50 transition-colors"

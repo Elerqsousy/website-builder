@@ -1,6 +1,6 @@
 import React from 'react'
 
-import type { SectionInstance } from '../../hooks/sections'
+import { SectionInstance } from '@/types'
 
 type Props = {
   sections: SectionInstance[]
