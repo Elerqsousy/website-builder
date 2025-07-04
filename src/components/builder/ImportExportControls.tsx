@@ -1,13 +1,22 @@
+'use client'
+
 import React from 'react'
 
-import { SectionInstance } from '@/types'
+import { useShallow } from 'zustand/shallow'
 
-type Props = {
-  sections: SectionInstance[]
-  onImport: (imported: SectionInstance[]) => void
-}
+import { useToast } from '@/contexts/toast'
+import { useSectionsStore } from '@/store'
+import { SectionsState } from '@/store/sectionSlice'
 
-const ImportExportControls: React.FC<Props> = ({ sections, onImport }) => {
+const selector = (state: SectionsState) => ({
+  sections: state.sections,
+  replaceSections: state.replaceSections,
+})
+const ImportExportControls: React.FC = () => {
+  const { sections, replaceSections } = useSectionsStore(useShallow(selector))
+
+  const { toast } = useToast()
+
   const handleExport = () => {
     const dataStr = JSON.stringify(sections, null, 2)
     const blob = new Blob([dataStr], { type: 'application/json' })
@@ -27,12 +36,13 @@ const ImportExportControls: React.FC<Props> = ({ sections, onImport }) => {
       try {
         const imported = JSON.parse(evt.target?.result as string)
         if (Array.isArray(imported)) {
-          onImport(imported)
+          replaceSections(imported)
+          toast('Import successful!', 'success')
         } else {
-          alert('Invalid JSON structure.')
+          toast('Invalid JSON structure.', 'error')
         }
       } catch {
-        alert('Invalid JSON file.')
+        toast('Invalid JSON file.', 'error')
       }
     }
     reader.readAsText(file)

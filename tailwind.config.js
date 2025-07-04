@@ -107,7 +107,7 @@ module.exports = {
       },
       animation: {
         fadeInSection: 'fadeInSection 0.4s ease forwards',
-        slideInPreview: 'slideInPreview 0.5s cubic-bezier(0.4,0,0.2,1)',
+        slideInPreview: 'slideInPreview 1s cubic-bezier(0.4,0,0.2,1)',
         focusRingPulse: 'focusRingPulse 0.3s',
         fadeInImportExport: 'fadeInImportExport 0.5s cubic-bezier(0.4,0,0.2,1)',
         fadeInSectionsLibrary: 'fadeInSectionsLibrary 0.5s cubic-bezier(0.4,0,0.2,1)',
