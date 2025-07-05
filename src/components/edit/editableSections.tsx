@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState, useCallback } from 'react'
 
 import { useShallow } from 'zustand/shallow'
 
@@ -30,9 +30,9 @@ const EditableSections: FC<EdetingItemProps> = ({ editingItem }) => {
     setItem(prev => ({ ...prev, [key]: value }))
   }
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setEditingItem(null)
-  }
+  }, [setEditingItem])
 
   const handleSave = () => {
     editSection(editingItem.id, { props: item } as Partial<Section>)
@@ -43,7 +43,7 @@ const EditableSections: FC<EdetingItemProps> = ({ editingItem }) => {
     return () => {
       window.removeEventListener('beforeunload', handleClose)
     }
-  }, [])
+  }, [handleClose])
 
   return (
     <ul className="flex flex-col">
