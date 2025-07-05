@@ -3,6 +3,8 @@ import React from 'react'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 
+import { cn } from '@/utils/tw-clsx'
+
 const SortableSectionItem: React.FC<{
   id: string
   idx: number
@@ -18,31 +20,19 @@ const SortableSectionItem: React.FC<{
   return (
     <li
       ref={setNodeRef}
-      className={[
-        'flex items-center gap-2 px-4 py-2 rounded transition-all duration-200 opacity-0 animate-fadeInSection',
+      className={cn(
+        'flex items-center gap-2 px-4 py-2 rounded transition-all duration-200 opacity-0 animate-fadeInSection relative',
         isDragging ? 'z-20 shadow-2xl scale-105 bg-white opacity-70' : 'z-10',
-        isOver ? 'bg-blue-50 border-2 border-dashed border-blue-500' : '',
-        'relative',
-      ].join(' ')}
+        isOver ? 'bg-blue-50 border-2 border-dashed border-blue-500' : ''
+      )}
       style={{
         transform: CSS.Transform.toString(transform),
         transition,
-        opacity: isDragging ? 0.7 : 1,
-        zIndex: isDragging ? 2 : 1,
-        background: isOver ? '#e6f0fa' : undefined,
       }}
       aria-label={sectionType}
       {...attributes}
       {...listeners}
     >
-      <span
-        className="cursor-grab select-none text-lg"
-        title="Drag to reorder. You can also use keyboard arrows."
-        aria-label="Drag handle"
-        tabIndex={-1}
-      >
-        ☰
-      </span>
       <span className="font-medium flex-1">{sectionType}</span>
       <button
         onClick={onDelete}

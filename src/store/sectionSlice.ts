@@ -1,39 +1,40 @@
 import { StateCreator } from 'zustand'
 
-import { SectionInstance, SectionProps } from '@/types'
+import { Section } from '@/types'
 
 export type SectionsState = {
-  sections: SectionInstance[]
-  addSection: (type: string) => void
+  sections: Section[]
+  editingId: string | null
+  setEditingId: (id: string | null) => void
+  addSection: (sectionTemplate: Section) => void
   deleteSection: (id: string) => void
   moveSection: (fromIndex: number, toIndex: number) => void
-  editSection: (id: string, newProps: SectionProps) => void
-  replaceSections: (newSections: SectionInstance[]) => void
+  editSection: <T extends Section>(id: string, newProps: Partial<T>) => void
+  replaceSections: (newSections: Section[]) => void
 }
 
 export const createSectionsSlice: StateCreator<SectionsState> = set => ({
   sections: [],
-  addSection: (type: string) => {
-    let defaultProps: SectionProps = {}
-    if (type === 'header') defaultProps = {}
-    else if (type === 'hero') defaultProps = {}
-    else if (type === 'footer') defaultProps = {}
-    set((state: SectionsState) => ({
+  editingId: null,
+  setEditingId: id => {
+    set({ editingId: id })
+  },
+  addSection: sectionTemplate => {
+    set(state => ({
       sections: [
         ...state.sections,
         {
-          id: `${type}-${Date.now()}`,
-          type,
-          props: defaultProps,
+          ...sectionTemplate,
+          id: `${sectionTemplate.group}-${Date.now()}`,
         },
       ],
     }))
   },
-  deleteSection: (id: string) =>
+  deleteSection: id =>
     set((state: SectionsState) => ({
       sections: state.sections.filter(section => section.id !== id),
     })),
-  moveSection: (fromIndex: number, toIndex: number) =>
+  moveSection: (fromIndex, toIndex) =>
     set((state: SectionsState) => {
       const updated = [...state.sections]
       const [moved] = updated.splice(fromIndex, 1)
@@ -42,11 +43,11 @@ export const createSectionsSlice: StateCreator<SectionsState> = set => ({
       }
       return { sections: updated }
     }),
-  editSection: (id: string, newProps: SectionProps) =>
+  editSection: (id, newProps) =>
     set((state: SectionsState) => ({
       sections: state.sections.map(section =>
-        section.id === id ? { ...section, props: { ...section.props, ...newProps } } : section
+        section.id === id ? ({ ...section, ...newProps } as Section) : section
       ),
     })),
-  replaceSections: (newSections: SectionInstance[]) => set(() => ({ sections: newSections })),
+  replaceSections: (newSections: Section[]) => set(() => ({ sections: newSections })),
 })

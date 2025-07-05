@@ -27,8 +27,6 @@ const selector = (state: SectionsState) => ({
 })
 
 const SortableSections = () => {
-  const [editingId, setEditingId] = useState<string | null>(null)
-
   const { sections, deleteSection, editSection, moveSection } = useSectionsStore(
     useShallow(selector)
   )
@@ -57,9 +55,6 @@ const SortableSections = () => {
               id={section.id}
               idx={idx}
               sectionType={section.type}
-              isEditing={editingId === section.id}
-              onEdit={() => setEditingId(section.id)}
-              onClose={() => setEditingId(null)}
               onDelete={() => deleteSection(section.id)}
             >
               <SectionEditor section={section} onEdit={editSection} />

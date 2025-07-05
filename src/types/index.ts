@@ -1,1 +1,1 @@
-export * from './sectionTypes'
+export * from './templateTypes'
