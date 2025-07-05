@@ -6,7 +6,7 @@ export type Route = {
 export type Slider = {
   title: string
   img: string
-  btnText: string
+  button_text: string
   paragraph: string
 }
 
@@ -20,20 +20,19 @@ export type BaseSection<T> = {
   classNames: string
 }
 
-export type HeaderSection = BaseSection<{ logo: string; logoText: string; routeList: Route[] }> & {
+export type HeaderSection = BaseSection<{ logo_text: string; route_list: Route[] }> & {
   group: 'header'
 }
 
 export type FooterSection = BaseSection<{
-  logo: string
-  logoText: string
-  showLogo: boolean
-  linkList: Route[]
+  logo_text: string
+  show_logo: boolean
+  link_list: Route[]
 }> & {
   group: 'footer'
 }
 
-export type HeroSection = BaseSection<{ sliderList: Slider[] }> & {
+export type HeroSection = BaseSection<{ slider_list: Slider[] }> & {
   group: 'hero'
 }
 

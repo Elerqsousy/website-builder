@@ -6,9 +6,8 @@ const sectionTemplate: Section[] = [
     group: 'header',
     props: {
       height: 60,
-      logo: '',
-      logoText: 'logo',
-      routeList: [
+      logo_text: 'logo',
+      route_list: [
         { title: 'Home', route: '/' },
         { title: 'About Us', route: '/about-us' },
       ],
@@ -20,10 +19,9 @@ const sectionTemplate: Section[] = [
     group: 'footer',
     props: {
       height: 60,
-      logoText: 'logo',
-      showLogo: true,
-      logo: '',
-      linkList: [
+      logo_text: 'logo',
+      show_logo: true,
+      link_list: [
         { title: 'Home', route: '/' },
         { title: 'About Us', route: '/about-us' },
       ],
@@ -35,18 +33,18 @@ const sectionTemplate: Section[] = [
     group: 'hero',
     props: {
       height: 400,
-      sliderList: [
+      slider_list: [
         {
           title: 'lorem Epsem',
           img: '#',
-          btnText: 'Book a tickt',
+          button_text: 'Book a tickt',
           paragraph:
             'lorem epsem lorem epsem lorem epsem lorem epsem lorem epsem lorem epsem lorem epsem',
         },
         {
           title: 'Home',
           img: '#',
-          btnText: 'Book a tickt',
+          button_text: 'Book a tickt',
           paragraph:
             'lorem epsem lorem epsem lorem epsem lorem epsem lorem epsem lorem epsem lorem epsem',
         },

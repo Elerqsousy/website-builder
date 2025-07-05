@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 import { useShallow } from 'zustand/shallow'
 
@@ -22,6 +22,10 @@ const EditableSections: FC<EdetingItemProps> = ({ editingItem }) => {
   const [item, setItem] = useState(editingItem.props)
   const { editSection, setEditingItem } = useSectionsStore(useShallow(selector))
 
+  useEffect(() => {
+    setItem(editingItem.props)
+  }, [editingItem])
+
   const handleChange = (key: string, value: Section[keyof Section]) => {
     setItem(prev => ({ ...prev, [key]: value }))
   }
@@ -34,10 +38,17 @@ const EditableSections: FC<EdetingItemProps> = ({ editingItem }) => {
     editSection(editingItem.id, { props: item } as Partial<Section>)
   }
 
+  useEffect(() => {
+    window.addEventListener('beforeunload', handleClose)
+    return () => {
+      window.removeEventListener('beforeunload', handleClose)
+    }
+  }, [])
+
   return (
     <ul className="flex flex-col">
-      {Object.entries(item).map(([key, value]) => {
-        return <RenderItem key={key} label={key} value={value} handleChange={handleChange} />
+      {Object.entries(item).map(([key, value], i) => {
+        return <RenderItem key={key + i} label={key} value={value} handleChange={handleChange} />
       })}
       <li className="flex justify-between items-center py-3 px-2">
         <button
