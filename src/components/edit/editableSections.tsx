@@ -26,7 +26,10 @@ const EditableSections: FC<EdetingItemProps> = ({ editingItem }) => {
     setItem(editingItem.props)
   }, [editingItem])
 
-  const handleChange = (key: string, value: Section[keyof Section]) => {
+  const handleChange = (
+    key: string,
+    value: Section[keyof Section] | Section['props'][keyof Section['props']]
+  ) => {
     setItem(prev => ({ ...prev, [key]: value }))
   }
 
@@ -63,8 +66,7 @@ const EditableSections: FC<EdetingItemProps> = ({ editingItem }) => {
         <button
           onClick={handleSave}
           className={cn(
-            'px-3 py-1 rounded border  border-gray-200  hover:bg-white hover:border-blue-500 bg-blue-50 transition-colors',
-            editingItem ? 'block' : 'hidden'
+            'px-3 py-1 rounded border  border-gray-200  hover:bg-white hover:border-blue-500 bg-blue-50 transition-colors'
           )}
         >
           Save
