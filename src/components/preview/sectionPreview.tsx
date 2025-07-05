@@ -19,11 +19,12 @@ type SectionPreviewProps = {
 
 const selector = (state: SectionsState) => ({
   deleteSection: state.deleteSection,
-  setEditingId: state.setEditingId,
+  setEditingItem: state.setEditingItem,
+  editingItem: state.editingItem,
 })
 
 const SectionPreview: React.FC<SectionPreviewProps> = ({ section }) => {
-  const { deleteSection, setEditingId } = useSectionsStore(useShallow(selector))
+  const { deleteSection, setEditingItem, editingItem } = useSectionsStore(useShallow(selector))
 
   const { attributes, listeners, setNodeRef, transform, transition, isDragging, isOver } =
     useSortable({ id: section.id })
@@ -33,17 +34,18 @@ const SectionPreview: React.FC<SectionPreviewProps> = ({ section }) => {
   }
 
   const handleEdit = () => {
-    setEditingId(section.id)
+    setEditingItem(section)
   }
   return (
     <div
       ref={setNodeRef}
       className={cn(
-        'transition-all duration-100 animate-fadeInSection relative group/preview',
+        'transition-all duration-200 animate-fadeInSection relative group/preview',
         isDragging
           ? 'z-20 shadow-2xl scale-105 bg-white opacity-70 cursor-grab'
-          : 'z-10 cursor-grabbing',
-        isOver && 'bg-blue-50 border-2 border-dashed border-blue-500'
+          : 'z-10 cursor-move',
+        isOver && 'bg-blue-50 border-2 border-dashed border-blue-500',
+        section.id === editingItem?.id && 'border border-amber-500'
       )}
       style={{
         transform: CSS.Transform.toString(transform),

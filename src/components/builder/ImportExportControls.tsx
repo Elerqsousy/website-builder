@@ -35,7 +35,12 @@ const ImportExportControls: React.FC = () => {
     reader.onload = evt => {
       try {
         const imported = JSON.parse(evt.target?.result as string)
-        if (Array.isArray(imported)) {
+        if (
+          Array.isArray(imported) &&
+          imported.every(
+            item => typeof item === 'object' && item !== null && 'id' in item && 'group' in item
+          )
+        ) {
           replaceSections(imported)
           toast('Import successful!', 'success')
         } else {
@@ -49,7 +54,7 @@ const ImportExportControls: React.FC = () => {
   }
 
   return (
-    <div className="mt-6">
+    <div>
       <button
         onClick={handleExport}
         className="mr-3 px-3 py-1 rounded border border-gray-200 bg-white hover:border-blue-500 hover:bg-blue-50 transition-colors"

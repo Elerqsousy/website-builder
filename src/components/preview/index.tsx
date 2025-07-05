@@ -14,8 +14,11 @@ import {
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { useShallow } from 'zustand/shallow'
 
+import { ToastProvider } from '@/contexts/toast'
 import { useSectionsStore } from '@/store'
 import { SectionsState } from '@/store/sectionSlice'
+
+import ImportExportControls from '../builder/ImportExportControls'
 
 import SectionPreview from './sectionPreview'
 
@@ -41,6 +44,12 @@ const Preview: React.FC = () => {
   }
   return (
     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+      <div className="flex justify-between items-center flex-wrap">
+        <h2 className="text-xl font-semibold">Live Preview</h2>
+        <ToastProvider>
+          <ImportExportControls />
+        </ToastProvider>
+      </div>
       <SortableContext items={sections.map(s => s.id)} strategy={verticalListSortingStrategy}>
         <div className=" animate animate-slideInPreview border border-gray-200 mt-4 min-h-[200px] rounded-lg">
           {sections.length === 0 && (

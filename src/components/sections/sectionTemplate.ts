@@ -4,52 +4,58 @@ const sectionTemplate: Section[] = [
   {
     id: 'group1',
     group: 'header',
-    width: 'full',
-    height: '60px',
+    props: {
+      width: 'full',
+      height: '60px',
+      logo: '',
+      logoText: 'logo',
+      routeList: [
+        { title: 'Home', route: '/' },
+        { title: 'About Us', route: '/about-us' },
+      ],
+    },
     classNames: '',
-    logo: '',
-    logoText: 'logo',
-    routeList: [
-      { title: 'Home', route: '/' },
-      { title: 'About Us', route: '/about-us' },
-    ],
   },
   {
     id: 'footer1',
     group: 'footer',
-    width: 'full',
-    height: '60px',
+    props: {
+      width: 'full',
+      height: '60px',
+      logoText: 'logo',
+      showLogo: true,
+      logo: '',
+      linkList: [
+        { title: 'Home', route: '/' },
+        { title: 'About Us', route: '/about-us' },
+      ],
+    },
     classNames: '',
-    logo: '',
-    logoText: 'logo',
-    showLogo: true,
-    linkList: [
-      { title: 'Home', route: '/' },
-      { title: 'About Us', route: '/about-us' },
-    ],
   },
   {
     id: 'hero1',
     group: 'hero',
-    width: 'full',
-    height: '400px',
+    props: {
+      width: 'full',
+      height: '400px',
+      sliderList: [
+        {
+          title: 'lorem Epsem',
+          img: '#',
+          btnText: 'Book a tickt',
+          paragraph:
+            'lorem epsem lorem epsem lorem epsem lorem epsem lorem epsem lorem epsem lorem epsem',
+        },
+        {
+          title: 'Home',
+          img: '#',
+          btnText: 'Book a tickt',
+          paragraph:
+            'lorem epsem lorem epsem lorem epsem lorem epsem lorem epsem lorem epsem lorem epsem',
+        },
+      ],
+    },
     classNames: '',
-    sliderList: [
-      {
-        title: 'lorem Epsem',
-        img: '#',
-        btnText: 'Book a tickt',
-        paragraph:
-          'lorem epsem lorem epsem lorem epsem lorem epsem lorem epsem lorem epsem lorem epsem',
-      },
-      {
-        title: 'Home',
-        img: '#',
-        btnText: 'Book a tickt',
-        paragraph:
-          'lorem epsem lorem epsem lorem epsem lorem epsem lorem epsem lorem epsem lorem epsem',
-      },
-    ],
   },
 ]
 

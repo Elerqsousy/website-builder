@@ -4,8 +4,8 @@ import { Section } from '@/types'
 
 export type SectionsState = {
   sections: Section[]
-  editingId: string | null
-  setEditingId: (id: string | null) => void
+  editingItem: Section | null
+  setEditingItem: (item: Section | null) => void
   addSection: (sectionTemplate: Section) => void
   deleteSection: (id: string) => void
   moveSection: (fromIndex: number, toIndex: number) => void
@@ -15,9 +15,9 @@ export type SectionsState = {
 
 export const createSectionsSlice: StateCreator<SectionsState> = set => ({
   sections: [],
-  editingId: null,
-  setEditingId: id => {
-    set({ editingId: id })
+  editingItem: null,
+  setEditingItem: item => {
+    set({ editingItem: item })
   },
   addSection: sectionTemplate => {
     set(state => ({
@@ -33,6 +33,7 @@ export const createSectionsSlice: StateCreator<SectionsState> = set => ({
   deleteSection: id =>
     set((state: SectionsState) => ({
       sections: state.sections.filter(section => section.id !== id),
+      editingItem: state.editingItem?.id === id ? null : state.editingItem,
     })),
   moveSection: (fromIndex, toIndex) =>
     set((state: SectionsState) => {

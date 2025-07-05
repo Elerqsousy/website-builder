@@ -17,7 +17,7 @@ const SectionRendrer: React.FC<PreviewSectionType> = ({ section }) => {
     case 'footer':
       return <FooterSectionPreview section={section} />
     default:
-      return <div>Unknown Section</div>
+      return <div className="flex justify-center items-center h-[50px]">Unknown Section</div>
   }
 }
 

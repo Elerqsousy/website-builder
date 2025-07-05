@@ -12,37 +12,30 @@ export type Slider = {
 
 export type SectionGroup = 'header' | 'footer' | 'hero'
 
-export type BaseSection = {
+export type BaseSection<T> = {
   id: string
-  width: string
-  height: string
+  props: {
+    width: string
+    height: string
+  } & T
   classNames: string
 }
 
-export type HeaderSection = BaseSection & {
+export type HeaderSection = BaseSection<{ logo: string; logoText: string; routeList: Route[] }> & {
   group: 'header'
-  logo: string
-  logoText: string
-  routeList: Route[]
 }
 
-export type FooterSection = BaseSection & {
-  group: 'footer'
+export type FooterSection = BaseSection<{
   logo: string
   logoText: string
   showLogo: boolean
   linkList: Route[]
+}> & {
+  group: 'footer'
 }
 
-export type HeroSection = BaseSection & {
+export type HeroSection = BaseSection<{ sliderList: Slider[] }> & {
   group: 'hero'
-  sliderList: Slider[]
 }
 
 export type Section = HeaderSection | FooterSection | HeroSection
-
-export type SectionMap = {
-  header: HeaderSection
-  footer: FooterSection
-  hero: HeroSection
-}
