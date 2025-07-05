@@ -5,8 +5,7 @@ const sectionTemplate: Section[] = [
     id: 'group1',
     group: 'header',
     props: {
-      width: 'full',
-      height: '60px',
+      height: 60,
       logo: '',
       logoText: 'logo',
       routeList: [
@@ -20,8 +19,7 @@ const sectionTemplate: Section[] = [
     id: 'footer1',
     group: 'footer',
     props: {
-      width: 'full',
-      height: '60px',
+      height: 60,
       logoText: 'logo',
       showLogo: true,
       logo: '',
@@ -36,8 +34,7 @@ const sectionTemplate: Section[] = [
     id: 'hero1',
     group: 'hero',
     props: {
-      width: 'full',
-      height: '400px',
+      height: 400,
       sliderList: [
         {
           title: 'lorem Epsem',

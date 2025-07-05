@@ -15,8 +15,7 @@ export type SectionGroup = 'header' | 'footer' | 'hero'
 export type BaseSection<T> = {
   id: string
   props: {
-    width: string
-    height: string
+    height: number
   } & T
   classNames: string
 }

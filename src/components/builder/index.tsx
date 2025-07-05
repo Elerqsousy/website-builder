@@ -2,10 +2,9 @@ import React from 'react'
 
 import { cn } from '@/utils/tw-clsx'
 
+import EditingSection from '../edit/editingSection'
 import Preview from '../preview'
 import SectionsLibrary from '../sections'
-
-import EditingSection from './editingSection'
 
 const Builder = () => {
   return (
