@@ -5,7 +5,10 @@ import { Section } from '@/types'
 type RenderItemProps = {
   label: string
   value: Section[keyof Section]
-  handleChange: (key: string, value: Section[keyof Section]) => void
+  handleChange: (
+    key: string,
+    value: Section[keyof Section] | Section['props'][keyof Section['props']]
+  ) => void
 }
 
 type ItemArrayProps = {
@@ -41,15 +44,21 @@ const RenderItemArray: FC<ItemArrayProps> = ({ arr, label, handleChange }) => {
 }
 
 const RenderItem: FC<RenderItemProps> = ({ label, value, handleChange }) => {
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    handleChange(label, e.target.value)
+  const onChange = (e: ChangeEvent<HTMLInputElement>, type: 'number' | 'string' = 'string') => {
+    const newValue = type === 'number' ? Number(e.target.value) : e.target.value
+    handleChange(label, newValue)
   }
 
   return (
     <li className="flex flex-col px-2 py-3 not-last:border-b border-gray-200">
       <span className="font-bold mb-2 capitalize">{label.split('_').join(' ')}</span>
       {typeof value === 'number' && (
-        <input type="number" className="bg-gray-100 py-2 px-3" value={value} onChange={onChange} />
+        <input
+          type="number"
+          className="bg-gray-100 py-2 px-3"
+          value={value}
+          onChange={e => onChange(e, 'number')}
+        />
       )}
       {typeof value === 'string' && (
         <input className="bg-gray-100 py-2 px-3" value={value} onChange={onChange} />
